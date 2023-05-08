@@ -147,15 +147,29 @@ public class MyFarm {
         int numberOfCarrot = 0;
         int numberOfLettuce = 0;
         int numberOfTulip = 0;
+        int currentMax = 1;
+        int currentMin = 101;
+        String maximumPlotPlant = new String("");
+        String minimumPlotPlant = new String("");
         for(int y=0;y<row.size();y++){
             if(row.get(y).plantName=="tomato"){
                 numberOfTomato = numberOfTomato + row.get(y).numberOfPlants;
             }if(row.get(y).plantName=="carrot"){
                 numberOfCarrot = numberOfCarrot + row.get(y).numberOfPlants;
+                if(row.get(y).numberOfPlants>currentMax){
+                    currentMax = row.get(y).numberOfPlants;
+                }
             }if(row.get(y).plantName=="lettuce"){
                 numberOfLettuce = numberOfLettuce + row.get(y).numberOfPlants;
             }if(row.get(y).plantName=="tulip"){
                 numberOfTulip = numberOfTulip + row.get(y).numberOfPlants;
+            }
+            if(row.get(y).numberOfPlants>currentMax && row.get(y).plantName!="empty"){
+                currentMax = row.get(y).numberOfPlants;
+                maximumPlotPlant = row.get(y).plantName;
+            }if(row.get(y).numberOfPlants<currentMin && row.get(y).plantName!="empty"){
+                currentMin = row.get(y).numberOfPlants;
+                minimumPlotPlant = row.get(y).plantName;
             }
         }
         System.out.println("There are " + numberOfTomato + " tomatoes.");
@@ -180,6 +194,8 @@ public class MyFarm {
         }if(numberOfTulip<numberOfCarrot && numberOfTulip<numberOfLettuce && numberOfTulip<numberOfTomato){
             System.out.println("There are less tulips than any other plant.");
         }
+        System.out.println("There are " + currentMax + " " + maximumPlotPlant + "s in the plot with the most plants.");
+        System.out.println("There are " + currentMin + " " + minimumPlotPlant + "s in the plot with the fewest plants.");
     }
     public void plantWithMaxNumberNeedsWater(){
         // which plant type has the most total plants (not counting empty plots) that needs water?
